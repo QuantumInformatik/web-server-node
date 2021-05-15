@@ -1,20 +1,18 @@
-const http = require('http')
+const express = require('express')
+const app = express()
 
-http.createServer((req, res) => {
+app.get('/', (req, res) => {
+    res.send('Hello World')
+})
 
-        res.setHeader('Content-Disposition', 'attachment; filename=lista.csv');
-        res.writeHead(200, { 'Content-Type': 'application/csv' });
-        res.write('id, nombre\n');
-        res.write('1, Juan\n');
-        res.write('2, Pedro\n');
-        res.write('3, Maria\n');
+app.get('/hola-mundo', (req, res) => {
+    res.send('Hola mundo en su respectiva rutass')
+})
 
+app.get('*', (req, res) => {
+    res.send('404|Not Found')
+})
 
-        res.end();
-
-    })
-    .listen(8080);
-
-console.log('Escuchando en el puerto 8080')
+app.listen(8080)
 
 //express framework para node js para servciios web o web servers.
