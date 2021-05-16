@@ -1,7 +1,13 @@
 const express = require('express')
-const app = express()
+const hbs = require('hbs');
+require('dotenv').config()
 
+const app = express()
+const port = process.env.PORT;
+
+//handlebars
 app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials', function(err) {});
 
 
 //servir contenido estatico
@@ -14,23 +20,28 @@ app.get('/', (req, res) => {
     })
 })
 
-app.get('/hola-mundo', (req, res) => {
-    res.send('Hola mundo en su respectiva rutass')
-})
 
 app.get('/generic', (req, res) => {
-    res.sendFile(__dirname + '/public/generic.html')
+    res.render('generic', {
+        nombre: 'Juan Guillermo',
+        titulo: 'Node con parametros'
+    })
 })
 
 app.get('/elements', (req, res) => {
-    res.sendFile(__dirname + '/public/elements.html')
+    res.render('elements', {
+        nombre: 'Juan Guillermo',
+        titulo: 'Node con parametros'
+    })
 })
 
 
 app.get('*', (req, res) => {
-    res.sendFile(__dirname + '/public/404.html')
+    res.sendFile(__dirname + '/public/templates/404.html')
 })
 
-app.listen(8080)
+app.listen(port, () => {
+    console.log(`Escuchando peticiones en el puerto ${ port }`);
+});
 
 //express framework para node js para servciios web o web servers.
