@@ -1,11 +1,15 @@
 const express = require('express')
 const app = express()
 
-//servir contenido estatico
+app.set('view engine', 'hbs');
 
+
+//servir contenido estatico
 app.use(express.static('public'))
 
-
+app.get('/', (req, res) => {
+    res.render('home')
+})
 
 app.get('/hola-mundo', (req, res) => {
     res.send('Hola mundo en su respectiva rutass')
